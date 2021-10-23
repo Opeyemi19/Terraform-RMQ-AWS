@@ -27,4 +27,10 @@ ssh-keygen
 # On passe à la Gestion des Utilisateurs dans Jenkins 'manage jenkins > manage users'; Là où on crée un User et on l'ajoute un Token, Le User ici est **sodik**
 
 #TERRAFORM
+On cree les fichiers pour l'ajout du code TERRAFORM mais et ensuite on le Push
+
+## Jenkins Job
+Après les differents config, on passe à la phase dans le Job de Jenkins et un test pour voir notre config même si cela à échouer, on va passer à Ansible
+
+## Ansible
 
