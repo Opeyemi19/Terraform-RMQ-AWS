@@ -1,0 +1,30 @@
+### AWS
+# Creation d'un IAM User dans AWS avec pour Droit: AmazonEC2FullAccess et pour Nom: DevOpsUser
+# Configurer le User crée sur sa machine 
+aws configure --profile DevOpsUser (Il va demander d'entrer ID Key, Secret et la region)
+# On cree un dossier .aws ensuite on copie les données vers un autre répertoire
+sudo mkdir /var/lib/jenkins/.aws
+sudo cp ~/.aws/* /var/lib/jenkins/.aws
+sudo chown jenkins:jenkins /var/lib/jenkins/.aws/*
+# Après ajout de la Clé SSH dans l'espace de travail, je fais:
+sudo mv ../../vagrant/rabbitmq.pem /var/lib/jenkins/.ssh/ (Le dosier .ssh doit être créer si ce n'est pas le cas alors on le crée dans /var/lib/jenkins/)
+# On l'inflige un chmod 400
+sudo chmod 400 /var/lib/jenkins/.ssh/rabbitmq.pem
+# On change le User qui doit se connecter désormais à cette clé SSH; Donc au lieu de vagrant:vagrant il sera le User jenkins:jenkins 
+sudo chown jenkins:jenkins /var/lib/jenkins/.ssh/rabbitmq.pem
+
+### GitHub
+# On crée le répos GitHub
+# On crée le SSH Key sur la VM et on l'ajout la Clé Public au GitHub pour permettre la connexion sans password
+ssh-keygen
+/home/vagrant/.ssh/jenkins_rsa (On change le nom du fichier final là où sera stocké la Clé SSH géneré)
+
+### JENKINS
+# On passe au démarrage de Jenkins s'il ne l'est pas
+# On installe le package (CloudBees AWS Credentials Plugin) dans la partie Gestion de Pluguin de Jenkins
+# On va ajouter un credentiel dans la partie 'Manage Jenkins' > 'Manage Credentials' de Jenkins qui sera notre Clé Privée SSH géneré plus haut
+# On ajoute aussi l'AWS Credentials qui permet de sauver garder le Access Key ID et Secret Access Key
+# On passe à la Gestion des Utilisateurs dans Jenkins 'manage jenkins > manage users'; Là où on crée un User et on l'ajoute un Token, Le User ici est **sodik**
+
+#TERRAFORM
+
