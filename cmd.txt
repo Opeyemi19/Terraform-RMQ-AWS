@@ -57,7 +57,8 @@ Pour cette partie ce lien explique l'installation de boto3 en fonction du type d
 - https://www.linkedin.com/pulse/dynamic-inventory-aws-instance-provisioning-ansible-mohamed-afrid/
 - https://stackoverflow.com/questions/24081557/finding-ansible-rds-instances
 
+Problèmes à régler:
+Je dois à chercher à comprendre le principe de Groupe Ansible utilisé ici car lorsque je change le nom par default du groupe avant l'execution de mon pipeline Jenkins de la aprte terraform pour la création de ma VM.
 
 NB: 
-Pour faire ce principe avec le fichier Jenkinsfile il a un projet qui est basé sur ce même principe donc je peut m'inspirer de cela.
-
+Pour faire ce principe avec le fichier Jenkinsfile il a un projet qui est basé sur ce même principe dans son GitHub, donc je peux m'inspirer de cela.
