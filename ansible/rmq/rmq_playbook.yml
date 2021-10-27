@@ -1,6 +1,8 @@
 ---
     - name: Configure Jenkins Playbook
       hosts: tag_group_rmq
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
       tasks:
 
         - name: install RMQ

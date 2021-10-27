@@ -27,10 +27,37 @@ ssh-keygen
 # On passe à la Gestion des Utilisateurs dans Jenkins 'manage jenkins > manage users'; Là où on crée un User et on l'ajoute un Token, Le User ici est **sodik**
 
 #TERRAFORM
-On cree les fichiers pour l'ajout du code TERRAFORM mais et ensuite on le Push
+On cree les fichiers pour l'ajout du code pour les différents services du Cloud que l'on va vouloir utiliser et ensuite on le Push vers GitHub
 
 ## Jenkins Job
-Après les differents config, on passe à la phase dans le Job de Jenkins et un test pour voir notre config même si cela à échouer, on va passer à Ansible
+Après les différents config TERRAFORM intégrés, on crée les Jobs de Jenkins et on effectue un test pour voir si notre config sont OK, alors après cela on passe à Ansible
 
 ## Ansible
+Je fais la Config des fichiers:
+# ansible.cfg : J'ajoute à l'intérieur du fichier (host_key_checking = False) au niveau de la partie [defaults]
+    [defaults]
+    host_key_checking = False
+# Je crée un dossier (group_vars) avec pour nom de fichier (tag_group_rmq.yaml) qui va contenir les cordoonnés pour me logger à la VM qui est deployé par TERRAFORM
+# Je crée le fichier inventory qui se terminera avec le nom (_aws_ec2.yml) pour récuperer de façon dynamic les certains informations sur ma VM EC2 deployé par le biais de TERRAFORM sur AWS.
+  Avec cette configuration j'aurai par exemple l'IP de la machine et cette IP sera utilisé par Ansible pour pour effectuer le deployment de façon automatique en fonction de ce qui a été configuré dans le fichier playbook d'Ansible.
+# Je fais l'installation du package boto3 and botocore qui va se charger de récuperer les infos de façon dynamique sur l'EC2 si non sans cela il ne va pas passer. 
+  Et il va retourner un Warning d'installation ec2 dynamic inventory plugin requires boto3 and botocore qui est nécessaire.
+Pour cette partie ce lien explique l'installation de boto3 en fonction du type d'installation d'Ansible lui au départ : https://devopscube.com/setup-ansible-aws-dynamic-inventory/
+
+### Lien utiliser durant ce Test:
+- https://www.scottyfullstack.com/blog/devops-button-click-environment-build-tutorial/
+- https://github.com/ScottyFullStack
+
+### Autres liens facultatifs pour ce projet mais intérresant pour la compréhension:
+- https://www.devopsschool.com/blog/terraform-environment-variables-exaplained/
+- https://cloud.google.com/architecture/managing-infrastructure-as-code-with-terraform-jenkins-and-gitops
+
+### Liens en rapport avec celui de RDS dans ce même principe d'avoir un inventory dynamique pour Ansible:
+- https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_rds_inventory.html
+- https://www.linkedin.com/pulse/dynamic-inventory-aws-instance-provisioning-ansible-mohamed-afrid/
+- https://stackoverflow.com/questions/24081557/finding-ansible-rds-instances
+
+
+NB: 
+Pour faire ce principe avec le fichier Jenkinsfile il a un projet qui est basé sur ce même principe donc je peut m'inspirer de cela.
 
